@@ -1,0 +1,29 @@
+body {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    background-color: #D7C8B4;
+    color: #241912;
+    margin: 0;
+    padding: 20px;
+}
+
+#grid-container {
+    display: inline-grid;
+    grid-template-columns: repeat(auto-fill, minmax(20px, 1fr));
+    gap: 2px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.grid-cell {
+    width: 16px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    padding: 0 1px;
+}
