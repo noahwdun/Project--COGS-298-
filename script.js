@@ -21,7 +21,7 @@ function f(x, y) {
     x = x / 2 - mouseX / 8;
     y = y / 2 - mouseY / 16;
 
-    var val = Math.exp(-(Math.pow(x, 2) + Math.pow(y, 2)));
+    var val = 1 + (Math.exp(x,3) * y - Math.exp(y,3) * x) / 390
 
     if (val < 0) {
         return ' ';
