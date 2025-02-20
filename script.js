@@ -22,7 +22,7 @@ function f(x, y) {
     x = x - (mouseX / 10);
     y = y - (mouseY / 18);
 
-    var val = Math.random() + (Math.pow(x, 3) * y - Math.pow(y, 3) * x) / 390;
+    var val = 1 + (Math.exp(x,3) * y - Math.exp(y,3) * x) / 390
 
     if (val < 0) {
         return ' ';
@@ -81,3 +81,4 @@ gridContainer.addEventListener('click', (event) => {
 });
 
 createGrid(gridHeight, gridWidth);
+requestAnimationFrame(updateGrid);
