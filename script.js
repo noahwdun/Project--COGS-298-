@@ -1,6 +1,6 @@
 const gridContainer = document.getElementById('grid-container');
 const gridHeight = 40;
-const gridWidth = 100;
+const gridWidth = 120;
 const fuzziness = 0.7;
 const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
 var animInterval = 0;
@@ -14,14 +14,15 @@ document.addEventListener('mousemove', (event) => {
     const rect = gridContainer.getBoundingClientRect();
     mouseX = event.clientX - rect.left;
     mouseY = event.clientY - rect.top;
+    updateGrid(); // Run updateGrid() when the mouse moves
 });
 
 // Define the function f(x, y) that returns a character based on the position (x, y)
 function f(x, y) {
-    x = x / 2 - mouseX / 8;
-    y = y / 2 - mouseY / 16;
+    x = x - (mouseX / 10);
+    y = y - (mouseY / 18);
 
-    var val = 1 + (Math.pow(x,3) * y - Math.pow(y,3) * x) / 390
+    var val = Math.random() + (Math.pow(x, 3) * y - Math.pow(y, 3) * x) / 390;
 
     if (val < 0) {
         return ' ';
@@ -51,9 +52,7 @@ function createGrid(rows, cols) {
 function animateGrid() {
   const cells = document.querySelectorAll('.grid-cell');
   cells.forEach(cell => {
-    setInterval(() => {
-      cell.textContent = characters[Math.floor(Math.random() * characters.length)];
-    }, Math.random() * 1000 + 500);
+    cell.textContent = f(Math.floor(Math.random() * gridWidth), Math.floor(Math.random() * gridHeight));
   });
 }
     
@@ -61,7 +60,7 @@ function animateGrid() {
 function updateGrid() {
     const cells = document.querySelectorAll('.grid-cell');
     cells.forEach((cell, index) => {
-        if (Math.random() < (1-fuzziness)) { // 50% chance to update the cell
+        if (Math.random() < (1 - fuzziness)) { // 50% chance to update the cell
             const x = index % gridWidth;
             const y = Math.floor(index / gridWidth);
             cell.textContent = f(x, y);
@@ -73,8 +72,6 @@ function updateGrid() {
     if (animInterval > 50) {
         animInterval = 0;
     }
-        
-    requestAnimationFrame(updateGrid);
 }
 
 gridContainer.addEventListener('click', (event) => {
@@ -84,4 +81,3 @@ gridContainer.addEventListener('click', (event) => {
 });
 
 createGrid(gridHeight, gridWidth);
-requestAnimationFrame(updateGrid);
